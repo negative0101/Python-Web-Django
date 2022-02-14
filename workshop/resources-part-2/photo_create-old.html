@@ -1,4 +1,3 @@
-{% load profiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,44 +14,71 @@
 </head>
 
 <body>
-
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom:2%">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    {% has_profile as hp%}
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Home</a>
-            </li>
-            {% if hp %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            </li>
-                {% if not hide_additional_nav_items %}
-            <li class="nav-item">
-                <a class="nav-link" href="{%  url 'create pet'%}">Add Pet</a>
+                <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'create pet photo' %}">Add Photo</a>
+                <a class="nav-link" href="#">Dashboard</a>
             </li>
-                    {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile details' %}">Profile</a>
+                <a class="nav-link" href="#">Add Pet</a>
             </li>
-            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Add Photo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
         </ul>
     </div>
 </nav>
 <!-- End Navigation Bar -->
 
-<!-- Profile Information -->
 <div class="container">
-    {% block page_content %}
-    {% endblock %}
+    <h1 class="text-center">Add new pet photo</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+            <!-- Form for Adding Photos -->
+            <form method="post" action="dashboard.html">
+                <div class="custom-file">
+                    <label for="file-upload">Pet Image</label>
+                    <input type="file" id="file-upload" class="form-control-file" name="filename">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Description</label>
+                    <textarea class="form-control" name="first_name" placeholder="Enter Description"
+                              id="first_name" rows="3"></textarea>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkbox">
+                    <label class="custom-control-label" for="checkbox">Tom</label><br>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="second-checkbox">
+                    <label class="custom-control-label" for="second-checkbox">Jerry</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="third-checkbox">
+                    <label class="custom-control-label" for="third-checkbox">Spike</label>
+                </div>
+
+                <button class="btn btn-primary mt-2" type="submit">Create</button>
+            </form>
+            <!-- End Form for Adding Photos -->
+
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
 </div>
 
 <!-- Page Footer -->
@@ -60,6 +86,7 @@
     <div>@2022 Python Web Basics Workshop at SoftUni</div>
 </footer>
 <!-- End Page Footer -->
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -32,7 +32,8 @@ class Profile(models.Model):
         max_length=max(len(x) for x, _ in GENDERS),
         choices=GENDERS,
         null=True,
-        blank=True
+        blank=True,
+        default=DO_NOT_SHOW
     )
 
 
@@ -69,7 +70,6 @@ class Pet(models.Model):
 
     class Meta:
         unique_together = ('user_profile', 'name')
-
 
 
 class PetPhoto(models.Model):
