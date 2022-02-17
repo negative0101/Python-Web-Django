@@ -22,7 +22,7 @@ class EditProfileForm(forms.ModelForm):
         fields = ('budget', 'first_name', 'last_name', 'image')
 
 
-class DeleteProfileForm(forms.ModelForm):
+class DeleteProfileForm(forms.ModelForm): #delete photos like CASCADE
     def save(self, commit=True):
         image_path = self.instance.image.path
         self.instance.delete()
