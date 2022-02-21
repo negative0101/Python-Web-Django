@@ -1,3 +1,6 @@
+{% load check_if_has_profile %}
+{% check_if_has_profile as user %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +22,8 @@
 
                     <a href="{% url 'show index' %}">Dashboard</a>
                     <div id="user">
-                        {% if not no_profile %}
-                        <span>Welcome, Test</span>
+                        {% if user %}
+                        <span>Welcome, {{ user.first_name }} {{ user.last_name }}</span>
                         <a class="button" href="{% url 'add book'%}">Add Book</a>
                         <a class="button" href="{% url 'show profile' %}">Profile</a>
                     </div>

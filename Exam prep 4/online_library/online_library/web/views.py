@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from online_library.web.forms import CreateProfileForm, AddBookForm
+from online_library.web.forms import CreateProfileForm, AddBookForm, EditBookForm, EditProfileForm, DeleteProfileForm, \
+    DeleteBookForm
 from online_library.web.models import Profile, Book
 
 
@@ -43,15 +44,42 @@ def create_profile(request):
 
 
 def show_profile(request):
-    return render(request, 'profile.html')
+    profile = get_profile()
+
+    context = {
+        'profile': profile
+    }
+    return render(request, 'profile.html', context)
 
 
 def edit_profile(request):
-    return render(request, 'edit-profile.html')
+    profile = get_profile()
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('show profile')
+
+    form = EditProfileForm(instance=profile)
+    context = {
+        'form': form
+    }
+    return render(request, 'edit-profile.html', context)
 
 
 def delete_profile(request):
-    return render(request, 'delete-profile.html')
+    profile = get_profile()
+    if request.method == 'POST':
+        form = DeleteProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    form = DeleteProfileForm(instance=profile)
+    context = {
+        'form':form
+    }
+
+    return render(request, 'delete-profile.html',context)
 
 
 def add_book(request):
@@ -76,5 +104,33 @@ def details_book(request, pk):
     return render(request, 'book-details.html', context)
 
 
-def edit_book(request):
-    return render(request, 'edit-book.html')
+def edit_book(request, pk):
+    book_details = Book.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = EditBookForm(request.POST, instance=book_details)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+
+    form = EditBookForm(instance=book_details)
+    context = {
+        'form': form,
+        'book_details': book_details
+    }
+    return render(request, 'edit-book.html', context)
+
+
+def delete_book(request, pk):
+    book_details = Book.objects.get(id=pk)
+    if request.method == 'POST':
+        form = DeleteBookForm(request.POST, instance=book_details)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+
+    form = DeleteBookForm(instance=book_details)
+    context = {
+        'form': form,
+        'book_details': book_details
+    }
+    return render(request, 'delete-profile.html', context)
