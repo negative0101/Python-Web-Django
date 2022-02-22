@@ -1,0 +1,14 @@
+{% extends 'body/body.html' %}
+{% block page_content %}
+        
+<h1>Delete Recipe</h1>
+<div class="items-container">
+    <div class="item">
+        <form method="POST">
+            {{ form }}
+            {% csrf_token %}
+            <input type="submit" class="button delete" value="Delete">
+        </form>
+    </div>
+</div>
+{% endblock %}
