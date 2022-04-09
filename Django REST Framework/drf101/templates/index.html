@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title> Document</title>
+</head>
+<body>
+<h1>At Ivailo's supermarket</h1>
+<div id="root">
+    <div class="list-products">
+
+    </div>
+    <div class="details-products">
+
+    </div>
+</div>
+
+<script>
+    window.URLS = {
+        productsAll: () => '/api/products/',
+        productDetails: (id) => `/api/products/${id}/`
+    }
+
+    const getAllProducts = () => {
+        const {productsAll} = window.URLS
+        fetch(productsAll())
+            .then(response => response.json())
+
+    }
+    const renderProductsList = (products) => {
+        let productsListItems = '';
+        for (const product of products) {
+            productsListItems += `
+            <li>
+                <a href="#">${product.name}</a>
+                </li>
+            `
+        }
+        return `<ul>${productsListItems}</ul>`
+    }
+    const loadAllProducts = () => {
+        getAllProducts()
+            .then(products => renderProductsList(products))
+            .then(productsList => {
+                document.querySelector('.list-products').innerHTML= productsList
+            });
+    };
+
+    const loadDetails = (id) => {
+
+    };
+    loadAllProducts();
+</script>
+</body>
+</html>
